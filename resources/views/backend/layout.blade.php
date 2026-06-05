@@ -82,9 +82,21 @@
             justify-content: center;
         }
         
+        @media (min-width: 769px) {
+            .sidebar.collapse {
+                display: block !important;
+            }
+            .sidebar.collapse:not(.show) {
+                visibility: visible !important;
+            }
+        }
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.show {
+                transform: translateX(0);
             }
             .main-content {
                 margin-left: 0;
@@ -94,7 +106,7 @@
     @yield('styles')
 </head>
 <body>
-    <div class="sidebar d-none d-md-block">
+    <div class="sidebar collapse d-md-block" id="sidebarMenu">
         <div class="p-3 border-bottom border-secondary">
             <h4 class="mb-0 fw-bold">
                 <i class="fas fa-cog me-2"></i>Admin Panel
@@ -171,6 +183,16 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('click', function(e) {
+            var sidebar = document.getElementById('sidebarMenu');
+            var toggleBtn = document.querySelector('[data-bs-target="#sidebarMenu"]');
+            if (!sidebar || window.innerWidth >= 769) return;
+            if (sidebar.classList.contains('show') && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                bootstrap.Collapse.getOrCreateInstance(sidebar).hide();
+            }
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>
