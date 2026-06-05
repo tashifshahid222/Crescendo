@@ -335,7 +335,7 @@
                     <button class="btn cart-btn" type="button" data-bs-toggle="dropdown">
                         <i class="fas fa-user"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end" style="right: -50px;">
                         @if(auth()->user()->role === 'admin')
                         <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                         @else
